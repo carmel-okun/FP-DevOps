@@ -45,4 +45,5 @@ resource "postgresql_grant" "status_page_db_grant" {
   database    = postgresql_database.database.name
   role        = postgresql_role.status_page_user.name
   privileges  = ["ALL"]
+  object_type = "database"
 }
