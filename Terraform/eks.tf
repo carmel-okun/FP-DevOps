@@ -14,6 +14,21 @@ resource "aws_iam_role" "eks_role" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "eks_node_role_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}
+
+resource "aws_iam_role_policy_attachment" "eks_ecr_policy" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
 # EKS Cluster
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
@@ -21,14 +36,17 @@ module "eks" {
   cluster_version = "1.30"
   subnet_id        = [aws_subnet.private_a1.id, aws_subnet.private_a2.id,  aws_subnet.private_b.id]
   vpc_id          = aws_vpc.main.id
+}
 
-  node_groups = {
-    eks_nodes = {
-      desired_capacity = 2
-      max_capacity     = 3
-      min_capacity     = 1
-      instance_type    = "t2.medium"
-    }
+resource "aws_eks_node_group" "eks_nodes" {
+  cluster_name    = module.eks.cluster_name
+  node_group_name = "eks-node-group"
+  node_role_arn   = aws_iam_role.eks_node_role.arn
+  subnet_id        = [aws_subnet.private_a1.id, aws_subnet.private_b.id]
+  scaling_config {
+    desired_size = 2
+    max_size     = 3
+    min_size     = 1
   }
-  manage_aws_auth = true
+  instance_types = ["t2.medium"]
 }
