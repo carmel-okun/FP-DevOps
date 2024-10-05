@@ -19,7 +19,7 @@ resource "aws_db_instance" "postgres" {
   engine_version       = "16.3"
   instance_class       = "db.t3.micro"
   db_name              = "yoram_carmel_db"
-  username             = "admin"
+  username             = "postgres_admin"
   password             = "password"
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   db_subnet_group_name = aws_db_subnet_group.db_subnet.id
@@ -32,7 +32,7 @@ provider "postgresql" {
   host     = aws_db_instance.postgres.address
   port     = aws_db_instance.postgres.port
   database = "postgres"  # Connect to the default database to create the user and assign ownership
-  username = "admin"
+  username = "postgres_admin"
   password = "password"
 }
 
