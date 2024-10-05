@@ -31,9 +31,10 @@ resource "aws_security_group" "rds_sg" {
   name   = "carmel_yoram_rds_sg"
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # maybe delete
     security_groups = [aws_security_group.lb_sg.id]
   }
 
@@ -51,9 +52,10 @@ resource "aws_security_group" "redis_sg" {
   name   = "carmel_yoram_redis_sg"
 
   ingress {
-    from_port   = 6379
-    to_port     = 6379
-    protocol    = "tcp"
+    from_port       = 6379
+    to_port         = 6379
+    protocol        = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # maybe delete
     security_groups = [aws_security_group.lb_sg.id]
   }
 

@@ -1,7 +1,7 @@
 # Redis Elasticache
 resource "aws_elasticache_subnet_group" "redis_subnet" {
   name       = "redis-subnet-group"
-  subnet_ids = [aws_subnet.private_a1.id, aws_subnet.private_a2.id,  aws_subnet.private_b.id]
+  subnet_ids = [aws_subnet.private_a1.id, aws_subnet.private_a2.id, aws_subnet.private_b.id]
 }
 
 resource "aws_elasticache_cluster" "redis" {

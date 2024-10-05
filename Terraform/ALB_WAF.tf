@@ -7,10 +7,10 @@ resource "aws_lb" "app_lb" {
   subnets            = [aws_subnet.public_a.id, aws_subnet.public_b.id]
 }
 
-resource "aws_waf_web_acl" "waf" {
-  name        = "yoram-carmel-waf"
-  metric_name = "YoramCarmelWafMetric"
-  default_action {
-    type = "ALLOW"
-  }
-}
+# resource "aws_waf_web_acl" "waf" {
+#   name        = "yoram-carmel-waf"
+#   metric_name = "YoramCarmelWafMetric"
+#   default_action {
+#     type = "ALLOW"
+#   }
+# }

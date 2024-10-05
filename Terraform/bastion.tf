@@ -22,7 +22,7 @@ resource "aws_iam_role_policy_attachment" "ssm_attach" {
 }
 
 resource "aws_instance" "bastion" {
-  ami           = "ami-0866a3c8686eaeeba"  # Ubuntu linux t2.micro
+  ami           = "ami-0866a3c8686eaeeba" # Ubuntu linux t2.micro
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_a.id
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "bastion_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Your public IP - for now all can access :D (later ip = x.x.x.x/32)
+    cidr_blocks = ["0.0.0.0/0"] # Your public IP - for now all can access :D (later ip = x.x.x.x/32)
   }
 
   egress {

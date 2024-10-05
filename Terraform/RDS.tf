@@ -2,7 +2,7 @@ terraform {
   required_providers {
     postgresql = {
       source  = "cyrilgdn/postgresql"
-      version = "~> 1.0"  # Specify the version you want to use
+      version = "~> 1.0" # Specify the version you want to use
     }
   }
 }
@@ -10,28 +10,28 @@ terraform {
 # PostgreSQL RDS
 resource "aws_db_subnet_group" "db_subnet" {
   name       = "rds-subnet-group"
-  subnet_ids = [aws_subnet.private_a1.id, aws_subnet.private_a2.id,  aws_subnet.private_b.id]
+  subnet_ids = [aws_subnet.private_a1.id, aws_subnet.private_a2.id, aws_subnet.private_b.id, aws_subnet.public_a.id]
 }
 
 resource "aws_db_instance" "postgres" {
-  allocated_storage    = 20
-  engine               = "postgres"
-  engine_version       = "16.3"
-  instance_class       = "db.t3.micro"
-  db_name              = "yoram_carmel_db"
-  username             = "postgres_admin"
-  password             = "password"
+  allocated_storage      = 20
+  engine                 = "postgres"
+  engine_version         = "16.3"
+  instance_class         = "db.t3.micro"
+  db_name                = "yoram_carmel_db"
+  username               = "postgres_admin"
+  password               = "password"
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  db_subnet_group_name = aws_db_subnet_group.db_subnet.id
-  publicly_accessible  = false
-  skip_final_snapshot  = true
+  db_subnet_group_name   = aws_db_subnet_group.db_subnet.id
+  publicly_accessible    = false
+  skip_final_snapshot    = true
 }
 
 # PostgreSQL Provider Configuration
 provider "postgresql" {
   host     = aws_db_instance.postgres.address
   port     = aws_db_instance.postgres.port
-  database = "postgres"  # Connect to the default database to create the user and assign ownership
+  database = "postgres" # Connect to the default database to create the user and assign ownership
   username = "postgres_admin"
   password = "password"
 }

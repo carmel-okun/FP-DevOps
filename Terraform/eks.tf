@@ -34,7 +34,7 @@ module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "carmel-yoram-eks-cluster"
   cluster_version = "1.30"
-  subnet_ids      = [aws_subnet.private_a1.id, aws_subnet.private_a2.id,  aws_subnet.private_b.id]
+  subnet_ids      = [aws_subnet.private_a1.id, aws_subnet.private_a2.id, aws_subnet.private_b.id]
   vpc_id          = aws_vpc.main.id
 }
 
