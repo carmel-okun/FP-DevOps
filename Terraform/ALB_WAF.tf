@@ -9,7 +9,7 @@ resource "aws_lb" "app_lb" {
 
 resource "aws_waf_web_acl" "waf" {
   name        = "yoram-carmel-waf"
-  metric_name = "yoram_carmel_waf_metric"
+  metric_name = "YoramCarmelWafMetric"
   default_action {
     type = "ALLOW"
   }
