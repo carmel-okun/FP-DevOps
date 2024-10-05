@@ -9,7 +9,7 @@ resource "aws_db_instance" "postgres" {
   engine               = "postgres"
   engine_version       = "13.3"
   instance_class       = "db.t3.micro"
-  name                 = "yoram-carmel-database"
+  dbname               = "yoram-carmel-database"
   username             = "admin"
   password             = "password"
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
