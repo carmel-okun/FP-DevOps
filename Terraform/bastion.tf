@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-  ami           = "ami-xxxxxxxx"  # Replace with a suitable AMI
+  ami           = "ami-0866a3c8686eaeeba"  # Ubuntu linux t2.micro
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_a.id
 
