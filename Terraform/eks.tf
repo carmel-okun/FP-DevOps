@@ -1,5 +1,5 @@
 # IAM Role for EKS
-resource "aws_iam_role" "eks_role" {
+resource "aws_iam_role" "eks_node_role" {
   name = "carmel_yoram_eks_role"
 
   assume_role_policy = jsonencode({
