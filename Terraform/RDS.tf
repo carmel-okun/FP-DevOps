@@ -51,7 +51,7 @@ resource "postgresql_database" "yoram_carmel_db" {
 
 # Grant privileges
 resource "postgresql_grant" "status_page_db_grant" {
-  database    = postgresql_database.database.name
+  database    = postgresql_database.yoram_carmel_db.name
   role        = postgresql_role.status_page_user.name
   privileges  = ["ALL"]
   object_type = "database"
