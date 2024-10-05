@@ -36,7 +36,7 @@ resource "postgresql_role" "status_page_user" {
 
 # Grant ownership of the database to the status-page user
 resource "postgresql_database" "yoram_carmel_db" {
-  name  = aws_db_instance.postgres.dbname
+  name  = aws_db_instance.postgres.db_name
   owner = postgresql_role.status_page_user.name
 }
 
