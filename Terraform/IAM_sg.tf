@@ -1,6 +1,7 @@
 # Security Group for ALB
 resource "aws_security_group" "lb_sg" {
   vpc_id = aws_vpc.main.id
+  name   = "carmel_yoram_lb_sg"
 
   ingress {
     from_port   = 80
@@ -27,6 +28,7 @@ resource "aws_security_group" "lb_sg" {
 # Security Group for RDS
 resource "aws_security_group" "rds_sg" {
   vpc_id = aws_vpc.main.id
+  name   = "carmel_yoram_rds_sg"
 
   ingress {
     from_port   = 5432
@@ -46,6 +48,7 @@ resource "aws_security_group" "rds_sg" {
 # Security Group for Redis
 resource "aws_security_group" "redis_sg" {
   vpc_id = aws_vpc.main.id
+  name   = "carmel_yoram_redis_sg"
 
   ingress {
     from_port   = 6379
