@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "~> 1.0"  # Specify the version you want to use
+    }
+  }
+}
+
 # PostgreSQL RDS
 resource "aws_db_subnet_group" "db_subnet" {
   name       = "rds-subnet-group"
