@@ -1,11 +1,30 @@
 # Install Prometheus and Grafana using Helm
+# provider "helm" {
+#   kubernetes {
+#     config_path = "~/.kube/config"
+#   }
+# }
+
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    host                   = module.eks.cluster_endpoint
+    token                  = data.aws_eks_cluster_auth.cluster.token
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   }
 }
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_name
+}
+
+# provider "kubernetes" {
+#   config_path = "~/.kube/config"
+# }
+
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  host                   = module.eks.cluster_endpoint
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 }
 
 # Create a Kubernetes namespace in the EKS cluster

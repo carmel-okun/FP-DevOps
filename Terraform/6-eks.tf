@@ -19,26 +19,13 @@ resource "aws_iam_role_policy_attachment" "eks" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-resource "aws_eks_cluster" "eks" {
-  name      = "carmel_yoram_eks_cluster"
-  version   = "1.30"
-  role_arn  = aws_iam_role.eks_clsuter_role.arn
+# EKS Cluster
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"
+  cluster_name    = "yoram-carmel-eks-cluster"
+  cluster_version = "1.30"
+  subnet_ids      = [aws_subnet.private_a1.id, aws_subnet.private_a2.id, aws_subnet.private_b.id]
+  vpc_id          = aws_vpc.main.id
 
-  vpc_config {
-    endpoint_private_access = false
-    endpoint_public_access  = true
-
-    subnet_ids = [ 
-      aws_subnet.private_a1.id,
-      aws_subnet.private_a2.id,
-      aws_subnet.private_b.id
-     ]
-  }
-
-  access_config {
-    authentication_mode                         = "API"
-    bootstrap_cluster_creator_admin_permissions = true
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.eks]   
+  depends_on = [aws_iam_role_policy_attachment.eks]
 }
