@@ -19,7 +19,7 @@ resource "helm_release" "prometheus" {
   name             = "prometheus"
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "kube-prometheus-stack"
-  namespace        = kubernetes_namespace.monitoring2.metadata.name
+  namespace        = "monitoring"
   create_namespace = true
 }
 
