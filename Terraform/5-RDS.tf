@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    postgresql = {
-      source  = "cyrilgdn/postgresql"
-      version = "~> 1.0" # Specify the version you want to use
-    }
-  }
-}
-
 # PostgreSQL RDS
 resource "aws_db_subnet_group" "db_subnet" {
   name       = "rds-subnet-group"
@@ -27,13 +18,3 @@ resource "aws_db_instance" "postgres" {
   skip_final_snapshot    = true
   storage_type           = "gp3"
 }
-
-# PostgreSQL Provider Configuration
-# provider "postgresql" {
-#   host     = aws_db_instance.postgres.address
-#   port     = aws_db_instance.postgres.port
-#   database = aws_db_instance.postgres.db_name
-#   username = aws_db_instance.postgres.username
-#   password = aws_db_instance.postgres.password
-#   sslmode  = "require"
-# }
