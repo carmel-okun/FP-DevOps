@@ -9,9 +9,9 @@ provider "kubernetes" {
 }
 
 # Create a Kubernetes namespace in the EKS cluster
-resource "kubernetes_namespace" "monitoring2" {
+resource "kubernetes_namespace" "monitoring" {
   metadata {
-    name = "monitoring2"
+    name = "monitoring"
   }
 }
 
