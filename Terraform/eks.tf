@@ -38,15 +38,28 @@ module "eks" {
   vpc_id          = aws_vpc.main.id
 }
 
-resource "aws_eks_node_group" "eks_nodes" {
+resource "aws_eks_node_group" "app_eks_nodes" {
   cluster_name    = module.eks.cluster_name
   node_group_name = "app-eks-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = [aws_subnet.private_a1.id, aws_subnet.private_b.id]
   scaling_config {
-    desired_size = 1
+    desired_size = 1 # 1 overall, needed 2 to have 1 at each subnet
     max_size     = 2
     min_size     = 1
   }
   instance_types = ["t2.medium"]
 }
+
+# resource "aws_eks_node_group" "monitoring_eks_nodes" {
+#   cluster_name    = module.eks.cluster_name
+#   node_group_name = "app-eks-node-group"
+#   node_role_arn   = aws_iam_role.eks_node_role.arn
+#   subnet_ids      = [aws_subnet.private_a2.id]
+#   scaling_config {
+#     desired_size = 1
+#     max_size     = 1
+#     min_size     = 1
+#   }
+#   instance_types = ["t2.medium"]
+# }

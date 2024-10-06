@@ -1,8 +1,14 @@
 # Install Prometheus and Grafana using Helm
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    host                   = module.eks.cluster_endpoint
+    token                  = data.aws_eks_cluster_auth.cluster.token
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   }
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_name
 }
 
 resource "helm_release" "prometheus" {
@@ -11,12 +17,22 @@ resource "helm_release" "prometheus" {
   chart            = "kube-prometheus-stack"
   namespace        = "monitoring"
   create_namespace = true
+
+  # set {
+  #   name  = "nodeSelector."
+  #   value = "eks.amazonaws.com/nodegroup=monitoring_eks_nodes"
+  # }
 }
 
-resource "helm_release" "grafana" {
-  name             = "grafana"
-  repository       = "https://grafana.github.io/helm-charts"
-  chart            = "grafana"
-  namespace        = "monitoring"
-  create_namespace = true
-}
+# resource "helm_release" "grafana" {
+#   name             = "grafana"
+#   repository       = "https://grafana.github.io/helm-charts"
+#   chart            = "grafana"
+#   namespace        = "monitoring"
+#   create_namespace = true
+
+#   set {
+#     name  = "nodeSelector."
+#     value = "eks.amazonaws.com/nodegroup=monitoring_eks_nodes"
+#   }
+# }
