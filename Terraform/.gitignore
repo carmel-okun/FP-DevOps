@@ -3,6 +3,7 @@
 # Exclude the .terraform directory in all subdirectories
 !**/.terraform/terraform.tfstate
 !**/.terraform/terraform.tfstate.lock.info
+Terraform/.terraform.lock.hcl
 
 # Ignore .tfstate files and their backups
 *.tfstate
