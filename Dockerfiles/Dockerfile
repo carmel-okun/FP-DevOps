@@ -1,4 +1,5 @@
 # Dockerfile
+# place this file in status-page directory of the app (right before all the app files)
 
 FROM ubuntu:22.04
 
