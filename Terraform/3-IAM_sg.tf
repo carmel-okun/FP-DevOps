@@ -23,6 +23,10 @@
 #     protocol    = "-1"
 #     cidr_blocks = ["0.0.0.0/0"]
 #   }
+
+#   tags = {
+#     Project = "TeamD"
+#   }
 # }
 
 # Security Group for RDS
@@ -31,10 +35,11 @@ resource "aws_security_group" "rds_sg" {
   name   = "yoram_carmel_rds_sg"
 
   ingress {
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.lb_sg.id]
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    #    security_groups = [aws_security_group.lb_sg.id]
   }
 
   egress {
@@ -42,6 +47,10 @@ resource "aws_security_group" "rds_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Project = "TeamD"
   }
 }
 
@@ -51,10 +60,11 @@ resource "aws_security_group" "redis_sg" {
   name   = "yoram_carmel_redis_sg"
 
   ingress {
-    from_port       = 6379
-    to_port         = 6379
-    protocol        = "tcp"
-    security_groups = [aws_security_group.lb_sg.id]
+    from_port   = 6379
+    to_port     = 6379
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    #    security_groups = [aws_security_group.lb_sg.id]
   }
 
   egress {
@@ -62,5 +72,9 @@ resource "aws_security_group" "redis_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Project = "TeamD"
   }
 }

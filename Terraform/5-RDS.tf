@@ -5,6 +5,7 @@ resource "aws_db_subnet_group" "db_subnet" {
 }
 
 resource "aws_db_instance" "postgres" {
+  identifier             = "yoram-carmel-postgres-db"
   allocated_storage      = 20
   engine                 = "postgres"
   engine_version         = "16.3"
@@ -17,4 +18,8 @@ resource "aws_db_instance" "postgres" {
   publicly_accessible    = false
   skip_final_snapshot    = true
   storage_type           = "gp3"
+
+  tags = {
+    Project = "TeamD"
+  }
 }
