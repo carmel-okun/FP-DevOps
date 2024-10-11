@@ -1,7 +1,7 @@
-# Update Gurnicorn.py
+### Update Gurnicorn.py
 change from: bind = '127.0.0.1:8001' to: bind = '0.0.0.0:8001'
 
-# Update Nginx.conf
+### Update Nginx.conf
 chagne from: proxy_pass http://127.0.0.1:8001;
 to: proxy_pass http://<container-name>:8001;
 
