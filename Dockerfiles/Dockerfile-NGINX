@@ -1,0 +1,9 @@
+# Dockerfile.nginx
+FROM nginx:latest
+
+# Copy your custom NGINX config to the container
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+# Add SSL certificates
+COPY ./certs/status-page.crt /etc/ssl/certs/
+COPY ./certs/status-page.key /etc/ssl/private/
