@@ -13,9 +13,9 @@ ALLOWED_HOSTS = ['*']
 DATABASE = {
     'NAME': 'status_page',         # Database name
     'USER': 'status_page',               # PostgreSQL username
-    'PASSWORD': 'pitpita',           # PostgreSQL password
-    'HOST': 'localhost',      # Database server
-    'PORT': '',               # Database port (leave blank for default)
+    'PASSWORD': 'password',           # PostgreSQL password
+    'HOST': 'yoram-carmel-postgres-db.cx248m4we6k7.us-east-1.rds.amazonaws.com',      # Database server
+    'PORT': '5432',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
 }
 
@@ -23,7 +23,7 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'localhost',
+        'HOST': 'yoram-carmel-redis-cluster.7fftml.0001.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
@@ -36,7 +36,7 @@ REDIS = {
         # 'INSECURE_SKIP_TLS_VERIFY': False,
     },
     'caching': {
-        'HOST': 'localhost',
+        'HOST': 'yoram-carmel-redis-cluster.7fftml.0001.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
