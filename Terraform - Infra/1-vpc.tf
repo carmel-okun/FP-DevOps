@@ -16,7 +16,7 @@ resource "aws_subnet" "public_a" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "TF-subnet-public-a"
+    Name    = "TF-subnet-public-a"
     Project = "TeamD"
   }
 }
@@ -28,7 +28,7 @@ resource "aws_subnet" "public_b" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "TF-subnet-public-b"
+    Name    = "TF-subnet-public-b"
     Project = "TeamD"
   }
 }
@@ -40,7 +40,7 @@ resource "aws_subnet" "private_a1" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "TF-subnet-private-a1"
+    Name    = "TF-subnet-private-a1"
     Project = "TeamD"
   }
 }
@@ -51,7 +51,7 @@ resource "aws_subnet" "private_a2" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "TF-subnet-private-a2"
+    Name    = "TF-subnet-private-a2"
     Project = "TeamD"
   }
 }
@@ -62,7 +62,7 @@ resource "aws_subnet" "private_b" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "TF-subnet-private-b"
+    Name    = "TF-subnet-private-b"
     Project = "TeamD"
   }
 }
