@@ -123,7 +123,7 @@ eksctl get clusters
 eksctl get nodegroup --cluster=<clusterName>
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
 eksctl delete cluster <clusterName>
-```bash
+```
 
 ########## optional ##########
 ```bash
