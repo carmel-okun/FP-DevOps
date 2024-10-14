@@ -1,6 +1,7 @@
-# install aws-cli eksctl kubectl helm
+# Prerequisites
+- install aws-cli eksctl kubectl helm
 
-# Create cluster
+## Create cluster
 ```bash
 eksctl create cluster --name=<cluster-name> \
 			--region=us-east-1 \
@@ -9,12 +10,12 @@ eksctl create cluster --name=<cluster-name> \
 			--vpc-private-subnets=<private-subnet-1>,<private-subnet-2>
 ```
 
-# download kube config to local machine (incase kube\eks cmd not working)
+## download kube config to local machine (incase kube\eks cmd not working)
 ```bash
 aws eks update-kubeconfig --region us-east-1 --name carmel_yoram_eks_cluster
 ```
 
-# Gives IAM ROLE to cluster
+## Gives IAM ROLE to cluster
 ```bash
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
@@ -22,7 +23,7 @@ eksctl utils associate-iam-oidc-provider \
     --approve
 ```
 
-# Create Nodegroup
+## Create Nodegroup
 ```
 eksctl create nodegroup --cluster=<cluster-name> \
                        	--region=us-east-1 \
@@ -44,23 +45,23 @@ eksctl create nodegroup --cluster=<cluster-name> \
   			--subnet-ids=[subnet-xxx]
 ```
 
-# Download IAM Policy
+## Download IAM Policy
 ```bash
 curl -o iam_policy_latest.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 ```
 
-# Create IAM Policy using policy downloaded (arn:aws:iam::992382545251:policy/AWSLoadBalancerControllerIAMPolicy)
+## Create IAM Policy using policy downloaded (arn:aws:iam::992382545251:policy/AWSLoadBalancerControllerIAMPolicy)
 ```bash
 aws iam create-policy \
     --policy-name AWSLoadBalancerControllerIAMPolicy \
     --policy-document file://iam_policy_latest.json
 ```
 
-# Verify if any IAM Service Accounts present in EKS Cluster
+## Verify if any IAM Service Accounts present in EKS Cluster
 ```bash
 eksctl get iamserviceaccount --cluster=yoram-test
 ```
-# create service account
+## create service account
 ```bash
 eksctl create iamserviceaccount \
   --cluster=<cluster-name> \
@@ -70,18 +71,18 @@ eksctl create iamserviceaccount \
   --override-existing-serviceaccounts \
   --approve
 ```
-# Describe Service Account aws-load-balancer-controller
+## Describe Service Account aws-load-balancer-controller
 ```bash
 kubectl describe sa aws-load-balancer-controller -n kube-system
 ```
 
-# Add the eks-charts repository.
+## Add the eks-charts repository.
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
 helm repo update
 ```
 
-# Install the AWS Load Balancer Controller.
+## Install the AWS Load Balancer Controller.
 ```bash
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
@@ -93,7 +94,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set image.repository=602401143452.dkr.ecr.us-east-1.amazonaws.com/amazon/aws-load-balancer-controller # do not change this line 
 ```
 	
-# Verify that the controller is installed.
+## Verify that the controller is installed.
 ```bash
 kubectl -n kube-system get deployment aws-load-balancer-controller
 ```
@@ -103,19 +104,19 @@ kubectl -n kube-system get deployment aws-load-balancer-controller
 kubectl -n kube-system get svc aws-load-balancer-webhook-service
 ```
 
-# Apply & Verify IngressClass Resource
+## Apply & Verify IngressClass Resource
 ```bash
 kubectl apply -f <ingress-class-resource-yaml>
 ```
 
-# Create Deployment, Service and Ingress yamls
+## Create Deployment, Service and Ingress yamls
 ```bash
 kubectl apply -f <yaml-files>
 ```
 
 - Check that ALB is up and running in the web
 
-# When finished and need to delete the cluster
+## When finished and need to delete the cluster
 ```bash
 kubectl delete -f <all-yamls>
 helm uninstall aws-load-balancer-controller -n kube-system  # Uninstall AWS Load Balancer Controller
