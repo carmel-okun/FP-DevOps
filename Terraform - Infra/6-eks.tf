@@ -48,3 +48,15 @@ resource "aws_eks_cluster" "eks" {
 
   depends_on = [aws_iam_role_policy_attachment.eks]
 }
+
+output "kubeconfig" {
+  value = "aws eks update-kubeconfig --region us-east-1 --name ${aws_eks_cluster.eks.name}"
+}
+
+resource "null_resource" "update_kubeconfig" {
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --region us-east-1 --name ${aws_eks_cluster.eks.name}"
+  }
+
+  depends_on = [aws_eks_cluster.eks]
+}

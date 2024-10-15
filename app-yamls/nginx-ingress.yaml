@@ -6,7 +6,7 @@ metadata:
     app: nginx
   annotations:
     # Load Balancer Name
-    alb.ingress.kubernetes.io/load-balancer-name: nginx-lb-ingress
+    alb.ingress.kubernetes.io/load-balancer-name: yoram-carmel-nginx-lb-ingress
     # Ingress Core Settings
     alb.ingress.kubernetes.io/scheme: internet-facing
     # Health Check Settings
