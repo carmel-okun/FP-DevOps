@@ -12,6 +12,10 @@ resource "aws_eks_cluster" "eks" {
       aws_subnet.private_a2.id,
       aws_subnet.private_b.id
     ]
+
+    security_group_ids = [
+      aws_security_group.eks_sg.id
+    ]
   }
 
   access_config {
@@ -45,4 +49,6 @@ resource "kubernetes_service_account" "aws_load_balancer_controller" {
       "eks.amazonaws.com/role-arn" = aws_iam_role.eks_service_account_role.arn
     }
   }
+
+  depends_on = [aws_eks_cluster.eks]
 }
