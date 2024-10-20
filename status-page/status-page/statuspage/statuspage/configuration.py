@@ -6,12 +6,12 @@
 # write access to the server via any other hostnames. The first FQDN in the list will be treated as the preferred name.
 #
 # Example: ALLOWED_HOSTS = ['status-page.example.com', 'status-page.internal.local']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['status-page.yoram-izilov.com', 'https://status-page.yoram-izilov.com', '*.yoram-izilov.com']
 
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'status_page',         # Database name
+    'NAME': 'status-page',         # Database name
     'USER': 'status_page',               # PostgreSQL username
     'PASSWORD': 'password',           # PostgreSQL password
     'HOST': 'yoram-carmel-postgres-db.cx248m4we6k7.us-east-1.rds.amazonaws.com',      # Database server
@@ -89,16 +89,17 @@ BASE_PATH = ''
 # CORS_ORIGIN_REGEX_WHITELIST. For more information, see https://github.com/ottoyiu/django-cors-headers
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [
-    # 'https://hostname.example.com',
+    'https://status-page.yoram-izilov.com',
+    'status-page.yoram-izilov.com'
 ]
 CORS_ORIGIN_REGEX_WHITELIST = [
-    # r'^(https?://)?(\w+\.)?example\.com$',
+    r'^(https?://)?(\w+\.)?yoram-izilov\.com$',
 ]
 
 # Set to True to enable server debugging. WARNING: Debugging introduces a substantial performance penalty and may reveal
 # sensitive information about your installation. Only enable debugging while performing testing. Never enable debugging
 # on a production system.
-DEBUG = False
+DEBUG = True
 
 # Email settings
 EMAIL = {
@@ -150,6 +151,9 @@ RQ_DEFAULT_TIMEOUT = 300
 
 # The name to use for the csrf token cookie.
 CSRF_COOKIE_NAME = 'csrftoken'
+
+# self added
+CSRF_TRUSTED_ORIGINS = ['https://status-page.yoram-izilov.com', 'https://*.yoram-izilov.com']
 
 # The name to use for the session cookie.
 SESSION_COOKIE_NAME = 'sessionid'
